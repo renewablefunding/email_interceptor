@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    email_interceptor (0.0.1)
+    email_interceptor (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -33,3 +33,6 @@ DEPENDENCIES
   rake
   rspec
   simplecov
+
+BUNDLED WITH
+   1.11.2

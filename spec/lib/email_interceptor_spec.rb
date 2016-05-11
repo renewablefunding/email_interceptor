@@ -53,4 +53,27 @@ describe EmailInterceptor do
       Time.unstub(:now)
     end
   end
+
+  describe '#override_single_recipient' do
+    context ':internal_only' do
+      it { expect( internal_interceptor.override_single_recipient('bob@renewfund.com')).to eq 'bob@renewfund.com' }
+      it { expect( internal_interceptor.override_single_recipient('bob@home.com')).to eq 'foo@bar.com' }
+    end
+
+    context ':live' do
+      it { expect( live_interceptor.override_single_recipient('bob@home.com')).to eq 'bob@home.com' }
+      it { expect( live_interceptor.override_single_recipient('bob@renewfund.com')).to eq 'bob@renewfund.com' }
+    end
+
+    context ':fake' do
+      it { expect( fake_interceptor.override_single_recipient('bob@home.com')).to eq 'foo@bar.com' }
+      it { expect( fake_interceptor.override_single_recipient('bob@renewfund.com')).to eq 'foo@bar.com' }
+    end
+
+
+    context 'else' do
+      it { expect( bogus_interceptor.override_single_recipient('bob@home.com')).to eq 'foo@bar.com' }
+      it { expect( bogus_interceptor.override_single_recipient('bob@renewfund.com')).to eq 'foo@bar.com' }
+    end
+  end
 end

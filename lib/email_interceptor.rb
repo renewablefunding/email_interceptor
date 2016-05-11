@@ -28,12 +28,13 @@ class EmailInterceptor
     end
   end
 
-private
   def override_single_recipient(recipient)
     case @strategy
     when :internal_only
       recipient =~ @internal_recipient_matcher ? recipient : @fake_email_address
-    else
+    when :live
+      recipient
+    else # :fake or otherwise
       @fake_email_address
     end
   end
